@@ -194,7 +194,7 @@ def cobertura(
 
                     modelo_reg = sm.OLS(Y,X).fit()
 
-                    _[contrato] = - modelo_reg.params[contrato + 1]
+                    _[contrato] = - modelo_reg.params[contrato + 1] * datos_futuros.iloc[periodo, contrato]
 
 
                 posicion.append(_)
@@ -230,7 +230,7 @@ def cobertura(
                 for contrato in range(cantidad_de_futuros):
 
 
-                    _[contrato] = - covar[0,contrato + 1] / var
+                    _[contrato] = -datos_futuros.iloc[periodo,contrato] * covar[0,contrato + 1] / var
 
 
                 posicion.append(_)
@@ -294,6 +294,25 @@ plt.plot(d.keys(), d.values())
 
 fig, ax = plt.subplots(figsize = (15,9))
 plt.plot(d.keys(), posicion_d )
+
+
+# modelo SM
+
+state_covs = np.load("cov_estados_crudo_SM.npy")
+
+state_covs.shape[0]
+
+e, posicion_e = cobertura(futures.iloc[:, 1::] ,futures.iloc[:,0],
+                        cantidad_de_futuros = num_contracts-1, tipo = "minima_varianza_SM",
+                        modelo_covarianzas = state_covs)
+
+
+fig, ax = plt.subplots(figsize = (15,9))
+plt.plot(e.keys(), e.values())
+
+fig, ax = plt.subplots(figsize = (15,9))
+plt.plot(e.keys(), posicion_e )
+
 
 
 # modelo SM
