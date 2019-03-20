@@ -7,7 +7,6 @@ class Dataholder:
 
     def __init__(self, subyacente, tiempo_inicio, tiempo_terminal, api_key, cantidad_contratos = 1):
 
-        # mi api =  "oXtqxBB1YNCLvfnoLyea"
         self.__api_key = str(api_key)
         self.__subyacente = subyacente
         self.__cantidad_contratos = cantidad_contratos
