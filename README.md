@@ -1,5 +1,5 @@
 # Coberturas-dinamicas
-Codigo para la tesis de maestría
+
 
 El orden correcto para correr los scripts es:
 
